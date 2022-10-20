@@ -4,7 +4,7 @@ import {
   getAdsFromDb,
   uploadImage,
   getRealtimeAds
-} from "./olx firebase.js";
+} from "./app.js";
 // function signInFirebase(email, password) {
 //   return signInWithEmailAndPassword(auth, email, password);
 // }
