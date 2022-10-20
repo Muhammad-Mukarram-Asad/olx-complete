@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #creative_div {
+            display: flex;
+            justify-content: flex-start;
+            border: 2px solid brown;
+            width: 100%;
+            height: 100%;
+        }
+
+        #inner_div {
+            border: 2px solid black;
+            width: 550px;
+            height: 550px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+
+        }
+
+        #inner_div h1 {
+            text-decoration: underline;
+            font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 10px;
+        }
+
+        #inner_div img {
+            display: block;
+            margin: 3px auto;
+        }
+
+        #inner_div_p {
+            font-size: 25px;
+            font-style: italic;
+            color: blue;
+
+        }
+
+        #btn {
+            width: 300px;
+            height: 50px;
+            color: black;
+            background-color: white;
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1> Ad Details:</h1>
+    <div id="creative_div"></div>
+    <button id="btn" onclick="getAdDetails()"> Ad Id</button>
+    <button id="btn" onclick="getAdDetails2()"> Ad Complete Detail</button>
+
+    <button id="btn"><a href="olx.html"> Backward Button</a></button>
+
+    <script type="module">
+        import { clickedAdFromDB } from "./olx firebase.js";
+
+        
+        window.getAdDetails = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id')
+            
+            //getFirebaseAd(id)
+            console.log('ad id ===>', id)
+        }
+
+        window.getAdDetails2 = async function()
+        {
+            const urlParams = new URLSearchParams(window.location.search);
+            const title = urlParams.get('title')
+
+            var div = document.getElementById('creative_div');
+
+            const ad_detail = await clickedAdFromDB(title);
+            for(let i of ad_detail)
+            {
+                div.innerHTML+=`<div id="inner_div">
+                    <h2>The image of the Ad is given below: </h2>
+                    <img src=${i.imageURL} width='500px' height='200px'>
+
+                    <h2>The Title of the Ad is given below: </h2>
+                    <p id="inner_div_p">${i.title}</p>
+
+                    <h2>The Description of the Ad is given below: </h2>
+                    <p id="inner_div_p">${i.description}</p>
+
+                    <h2>The Price of the Ad is given below: </h2>
+                    <p id="inner_div_p">${i.price}</p>
+
+                    <h2>The location of the Ad is given below: </h2>
+                    <p id="inner_div_p">${i.location}</p>
+
+                    <h2>Owner's contact number is given below: </h2>
+                    <p id="inner_div_p">${i.contact_number}</p>
+                    </div>`
+
+            }
+        }
+
+
+            // var ads_list = [];
+            // const querySnapshot = await getDocs(collection(db, "ads"));
+            // querySnapshot.forEach((doc) => {
+            //   // doc.data() is never undefined for query doc snapshots
+            //   console.log(doc.id, " => ", doc.data());
+            //   ads_list.push(doc.data());
+            // });
+            // console.log(ads_list);
+
+
+
+    </script>
+
+    <!-- 
+1. Install nodejs from website
+2. Verify using node -v and npm -v in CMD
+3. npm install -g firebase-tools
+4. Open cmd inside project's folder
+5. firebase login
+6. firebase init
+7. move all the relevant HTML, CSS, JS & Media files
+into public folder
+8. firebase deploy -->
+
+</body>
+
+</html>
