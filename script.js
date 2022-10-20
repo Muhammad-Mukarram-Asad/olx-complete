@@ -82,11 +82,11 @@ function getAds() {
 }
 
 window.goToDetail = async function (id) {
-  location.href = `olx details.html?id=${id}`;
+  location.href = `home.html?id=${id}`;
 }
 
 window.goToDetail2 = async function (title) {
-  location.href = `olx details.html?title=${title}`;
+  location.href = `home.html?title=${title}`;
 }
 
 
